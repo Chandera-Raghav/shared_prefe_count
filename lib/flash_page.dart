@@ -5,6 +5,7 @@ import 'package:untitled2/home_page.dart';
 import 'package:untitled2/login_page.dart';
 
 class FlashePageScreen extends StatefulWidget {
+  const FlashePageScreen({super.key});
   @override
   State<StatefulWidget> createState() => _FlashePageScreenState();
 }

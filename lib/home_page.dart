@@ -1,4 +1,4 @@
-import 'dart:math';
+// import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled2/login_page.dart';
@@ -10,7 +10,7 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  String increment = "";
+  int increment = 0;
   @override
   void initState() {
     super.initState();
@@ -20,8 +20,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor:  increment%3==0 ? Colors.primaries[Random().nextInt(Colors.primaries.length)] : Colors.white,
-      body:Column(children: [
+       backgroundColor:  increment%3==0 ? Colors.red : Colors.white,
+      body:Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Center(
         child: ElevatedButton(onPressed: () async{
           SharedPreferences prefes = await SharedPreferences.getInstance();
@@ -30,16 +30,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
         }, child: const Text("Logout")),
       ),
         Container(
-          alignment: Alignment.bottomRight,
-          child: Text(increment),
+          color: Colors.green,
+          width: 50,
+          alignment: Alignment.center,
+          child: Text("$increment", style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.black87),),
         )
     ])
     );
   }
   void _getPrefesInt () async{
     SharedPreferences prefes = await SharedPreferences.getInstance();
-    int incrementer = (prefes.getInt('_incrementer') ?? 0) + 1;
-    increment = "$incrementer";
+    increment = prefes!.getInt('_incrementer') ?? 0;
+    increment++;
+    prefes!.setInt('_incrementer', increment);
     setState(() {
 
     });
