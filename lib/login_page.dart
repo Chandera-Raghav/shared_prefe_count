@@ -9,7 +9,6 @@ class LoginPageScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _LoginPageScreenState();
 }
 class _LoginPageScreenState extends State<LoginPageScreen> {
-  int _counter = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,12 +16,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
         child: ElevatedButton(onPressed: () async{
           SharedPreferences prefes = await SharedPreferences.getInstance();
           prefes.setBool(LoginPageScreen.LOGIN_KEY, true);
-          void _incrementCounter() {
-            setState(() {
-              _counter++;
-            });
-          }
-          prefes.setInt("_incrementer", _incrementCounter as int);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (Context)=> const HomePageScreen()));
         }, child: const Text("Login")),
       ),

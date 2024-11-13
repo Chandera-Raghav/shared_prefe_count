@@ -1,5 +1,4 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled2/login_page.dart';
@@ -11,11 +10,17 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
+  String increment = "";
+  @override
+  void initState() {
+    super.initState();
+    _getPrefesInt();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+        backgroundColor:  increment%3==0 ? Colors.primaries[Random().nextInt(Colors.primaries.length)] : Colors.white,
       body:Column(children: [
       Center(
         child: ElevatedButton(onPressed: () async{
@@ -26,15 +31,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
         Container(
           alignment: Alignment.bottomRight,
-          child: const Text('$_getPrefesInt'),
+          child: Text(increment),
         )
     ])
     );
   }
-}
-void _getPrefesInt () async{
-  SharedPreferences prefes = await SharedPreferences.getInstance();
-  int incrementer = (prefes.getInt('_incrementer') ?? 0) + 1;
-  String increment = "$incrementer";
-  return increment;
+  void _getPrefesInt () async{
+    SharedPreferences prefes = await SharedPreferences.getInstance();
+    int incrementer = (prefes.getInt('_incrementer') ?? 0) + 1;
+    increment = "$incrementer";
+    setState(() {
+
+    });
+  }
+
 }
